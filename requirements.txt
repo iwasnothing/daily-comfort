@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+sse-starlette
+langgraph
+langchain-openai
+python-dotenv
+pydantic
+serpapi
+beautifulsoup4
+pytest
+httpx

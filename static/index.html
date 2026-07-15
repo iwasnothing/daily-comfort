@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Comfort</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #0f0f0f;
+            color: #e0e0e0;
+            padding: 2rem;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+        .subtitle {
+            color: #888;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+        .controls {
+            margin-bottom: 1.5rem;
+        }
+        .controls button {
+            background: #7c8aff;
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .controls button:hover { background: #6a78e0; }
+        .controls button:disabled { background: #444; cursor: not-allowed; }
+
+        /* Table styles */
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+            background: #1a1a2e;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #2a2a4a;
+            animation: fadeIn 0.5s ease-in;
+        }
+        .result-table th {
+            background: #22223a;
+            color: #7c8aff;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #2a2a4a;
+        }
+        .result-table td {
+            padding: 1rem;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            color: #d0d0d0;
+            vertical-align: top;
+            border-bottom: 1px solid #2a2a4a;
+        }
+        .result-table tr:last-child td { border-bottom: none; }
+        .result-table tr.active { background: #1f1f3a; }
+
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+        .error { color: #ff6b6b; }
+        .spinner {
+            width: 16px; height: 16px;
+            border: 2px solid #333;
+            border-top-color: #7c8aff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.4rem;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .status-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            min-height: 1.5rem;
+            color: #888;
+            font-size: 0.85rem;
+        }
+        /* News list: yellow links, no bullet markers, compact spacing */
+        .news-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .news-list li {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            line-height: 1.5;
+        }
+        .news-list li:last-child {
+            border-bottom: none;
+        }
+        .news-list a {
+            color: #ffe066;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .news-list a:hover {
+            text-decoration: underline;
+        }
+        .news-meta {
+            color: #888;
+            font-size: 0.82rem;
+        }
+        /* Animation container — iframe below the table */
+        #animation-container {
+            display: none;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.5s ease-in;
+        }
+        .animation-header {
+            color: #7c8aff;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            padding-left: 0.25rem;
+        }
+        .animation-iframe {
+            width: 100%;
+            height: 500px;
+            border-radius: 12px;
+            border: 1px solid #2a2a4a;
+            background: #fff;
+        }
+        .animation-link {
+            color: #7c8aff;
+            text-decoration: none;
+            word-break: break-all;
+        }
+        .animation-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌅 Daily Comfort</h1>
+    <p class="subtitle">Hong Kong News → Feelings → Pastoral Comfort</p>
+
+    <div class="controls">
+        <button id="run-btn" onclick="startStream()">🔄 重新生成</button>
+    </div>
+
+    <div id="status-bar" class="status-bar"></div>
+
+    <table class="result-table" id="result-table" style="display:none;">
+        <thead>
+            <tr>
+                <th style="width:22%;">步驟</th>
+                <th style="width:78%;">內容</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+    </table>
+
+    <div id="animation-container"></div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

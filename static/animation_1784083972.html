@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>主的平安與應許</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
+
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0a0a1a;
+    font-family: 'Noto Serif TC', 'Songti TC', 'MingLiU', serif;
+  }
+
+  .scene {
+    position: relative;
+    width: 100vmin;
+    height: 100vmin;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  /* === SKY === */
+  .sky {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, 
+      #0b0e2a 0%, 
+      #1a1f4e 30%, 
+      #2d2b6e 50%, 
+      #4a3f7a 70%, 
+      #6b5a6e 85%, 
+      #8b7355 95%, 
+      #a08060 100%);
+    animation: skyShift 12s ease-in-out infinite;
+  }
+
+  @keyframes skyShift {
+    0%, 100% {
+      background: linear-gradient(180deg, 
+        #0b0e2a 0%, 
+        #1a1f4e 30%, 
+        #2d2b6e 50%, 
+        #4a3f7a 70%, 
+        #6b5a6e 85%, 
+        #8b7355 95%, 
+        #a08060 100%);
+    }
+    50% {
+      background: linear-gradient(180deg, 
+        #1a1040 0%, 
+        #3a2565 20%, 
+        #6a4575 40%, 
+        #b8855a 65%, 
+        #d4a574 80%, 
+        #e8c89a 92%, 
+        #f0d8a8 100%);
+    }
+  }
+
+  /* === STARS === */
+  .stars {
+    position: absolute;
+    width: 100%;
+    height: 60%;
+    top: 0;
+    animation: starsFade 12s ease-in-out infinite;
+  }
+
+  @keyframes starsFade {
+    0%, 100% { opacity: 1; }
+    45% { opacity: 0.3; }
+    55% { opacity: 0.3; }
+    100% { opacity: 1; }
+  }
+
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+
+  .star:nth-child(1) { top: 8%; left: 15%; animation-delay: 0s; }
+  .star:nth-child(2) { top: 12%; left: 35%; animation-delay: 0.5s; width: 3px; height: 3px; }
+  .star:nth-child(3) { top: 5%; left: 55%; animation-delay: 1s; }
+  .star:nth-child(4) { top: 18%; left: 72%; animation-delay: 1.5s; width: 1.5px; height: 1.5px; }
+  .star:nth-child(5) { top: 22%; left: 25%; animation-delay: 2s; }
+  .star:nth-child(6) { top: 15%; left: 88%; animation-delay: 0.3s; width: 2.5px; height: 2.5px; }
+  .star:nth-child(7) { top: 30%; left: 45%; animation-delay: 0.8s; }
+  .star:nth-child(8) { top: 7%; left: 68%; animation-delay: 1.2s; width: 1.5px; height: 1.5px; }
+  .star:nth-child(9) { top: 25%; left: 10%; animation-delay: 1.8s; }
+  .star:nth-child(10) { top: 10%; left: 80%; animation-delay: 2.2s; width: 2px; height: 2px; }
+  .star:nth-child(11) { top: 35%; left: 60%; animation-delay: 0.6s; }
+  .star:nth-child(12) { top: 3%; left: 42%; animation-delay: 1.4s; width: 3px; height: 3px; }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); }
+  }
+
+  /* === DIVINE LIGHT === */
+  .divine-light {
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60vmin;
+    height: 70vmin;
+    background: radial-gradient(ellipse at top center,
+      rgba(255, 220, 150, 0.35) 0%,
+      rgba(255, 200, 120, 0.15) 30%,
+      rgba(255, 180, 100, 0.05) 60%,
+      transparent 80%);
+    animation: lightPulse 6s ease-in-out infinite;
+    z-index: 2;
+  }
+
+  @keyframes lightPulse {
+    0%, 100% { opacity: 0.6; transform: translateX(-50%) scaleX(1); }
+    50% { opacity: 1; transform: translateX(-50%) scaleX(1.1); }
+  }
+
+  /* Light rays */
+  .light-rays {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    animation: raysRotate 20s linear infinite;
+  }
+
+  @keyframes raysRotate {
+    0% { transform: translateX(-50%) rotate(0deg); }
+    100% { transform: translateX(-50%) rotate(360deg); }
+  }
+
+  .ray {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 55vmin;
+    background: linear-gradient(180deg, 
+      rgba(255, 220, 150, 0.2) 0%, 
+      transparent 100%);
+    transform-origin: top center;
+  }
+
+  .ray:nth-child(1) { transform: rotate(-30deg); }
+  .ray:nth-child(2) { transform: rotate(-15deg); }
+  .ray:nth-child(3) { transform: rotate(0deg); }
+  .ray:nth-child(4) { transform: rotate(15deg); }
+  .ray:nth-child(5) { transform: rotate(30deg); }
+  .ray:nth-child(6) { transform: rotate(-45deg); width: 1px; }
+  .ray:nth-child(7) { transform: rotate(45deg); width: 1px; }
+
+  /* === CROSS === */
+  .cross {
+    position: absolute;
+    bottom: 28%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    animation: crossGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes crossGlow {
+    0%, 100% { filter: drop-shadow(0 0 8px rgba(255, 220, 150, 0.4)); }
+    50% { filter: drop-shadow(0 0 20px rgba(255, 220, 150, 0.8)) drop-shadow(0 0 40px rgba(255, 200, 120, 0.3)); }
+  }
+
+  .cross-vertical {
+    width: 6px;
+    height: 22px;
+    background: linear-gradient(180deg, #fff8e0, #ffd080);
+    margin: 0 auto;
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .cross-horizontal {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 5px;
+    background: linear-gradient(90deg, #fff8e0, #ffd080);
+    border-radius: 2px;
+  }
+
+  /* === HILLS === */
+  .hill-back {
+    position: absolute;
+    bottom: 0;
+    left: -10%;
+    width: 120%;
+    height: 35%;
+    background: linear-gradient(180deg, #3a4a3a, #2a3a2a);
+    border-radius: 60% 60% 0 0 / 100% 100% 0 0;
+    z-index: 3;
+  }
+
+  .hill-front {
+    position: absolute;
+    bottom: 0;
+    left: -5%;
+    width: 110%;
+    height: 28%;
+    background: linear-gradient(180deg, #4a5a3a, #3a4a2a);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    z-index: 4;
+  }
+
+  .hill-center {
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    width: 60%;
+    height: 25%;
+    background: linear-gradient(180deg, #5a6a4a, #4a5a3a);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    z-index: 4;
+  }
+
+  /* === PEOPLE SILHOUETTES === */
+  .people {
+    position: absolute;
+    bottom: 22%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 6;
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  /* Elderly person with cane */
+  .person-elderly {
+    position: relative;
+    width: 14px;
+    height: 28px;
+    animation: personBreathe 4s ease-in-out infinite;
+  }
+
+  .person-elderly .head {
+    width: 8px;
+    height: 8px;
+    background: #1a1a2a;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .person-elderly .body {
+    width: 10px;
+    height: 16px;
+    background: #1a1a2a;
+    border-radius: 4px 4px 2px 2px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .person-elderly .cane {
+    position: absolute;
+    right: -6px;
+    top: 10px;
+    width: 2px;
+    height: 20px;
+    background: #2a2a3a;
+    border-radius: 1px;
+    transform: rotate(8deg);
+  }
+
+  .person-elderly .cane::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -2px;
+    width: 6px;
+    height: 3px;
+    background: #2a2a3a;
+    border-radius: 2px;
+  }
+
+  /* Adult person */
+  .person-adult {
+    position: relative;
+    width: 14px;
+    height: 32px;
+    animation: personBreathe 4s ease-in-out infinite 0.5s;
+  }
+
+  .person-adult .head {
+    width: 8px;
+    height: 8px;
+    background: #1a1a2a;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .person-adult .body {
+    width: 12px;
+    height: 20px;
+    background: #1a1a2a;
+    border-radius: 4px 4px 2px 2px;
+    margin: 0 auto;
+  }
+
+  /* Child person */
+  .person-child {
+    position: relative;
+    width: 10px;
+    height: 18px;
+    animation: childBounce 3s ease-in-out infinite 1s;
+  }
+
+  .person-child .head {
+    width: 7px;
+    height: 7px;
+    background: #1a1a2a;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .person-child .body {
+    width: 8px;
+    height: 9px;
+    background: #1a1a2a;
+    border-radius: 3px 3px 2px 2px;
+    margin: 0 auto;
+  }
+
+  /* Person holding hands (adult + child connected) */
+  .person-adult::after {
+    content: '';
+    position: absolute;
+    bottom: 20px;
+    right: -5px;
+    width: 5px;
+    height: 2px;
+    background: #1a1a2a;
+    border-radius: 1px;
+    transform: rotate(-15deg);
+  }
+
+  .person-child::before {
+    content: '';
+    position: absolute;
+    bottom: 26px;
+    left: -5px;
+    width: 5px;
+    height: 2px;
+    background: #1a1a2a;
+    border-radius: 1px;
+    transform: rotate(15deg);
+  }
+
+  @keyframes personBreathe {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-1px); }
+  }
+
+  @keyframes childBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+
+  /* People glow effect during light phase */
+  .people {
+    animation: peopleIlluminated 12s ease-in-out infinite;
+  }
+
+  @keyframes peopleIlluminated {
+    0%, 100% { 
+      filter: brightness(0.5);
+      transform: translateX(-50%) translateY(0);
+    }
+    40% { 
+      filter: brightness(0.5);
+      transform: translateX(-50%) translateY(0);
+    }
+    55% { 
+      filter: brightness(1.2) drop-shadow(0 0 8px rgba(255, 200, 120, 0.3));
+      transform: translateX(-50%) translateY(-2px);
+    }
+    70% { 
+      filter: brightness(1.3) drop-shadow(0 0 12px rgba(255, 200, 120, 0.4));
+      transform: translateX(-50%) translateY(-3px);
+    }
+    85% { 
+      filter: brightness(1.2) drop-shadow(0 0 8px rgba(255, 200, 120, 0.3));
+      transform: translateX(-50%) translateY(-1px);
+    }
+  }
+
+  /* === DOVE === */
+  .dove {
+    position: absolute;
+    top: 18%;
+    left: -15%;
+    z-index: 8;
+    animation: doveFly 18s linear infinite;
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+  }
+
+  @keyframes doveFly {
+    0% { left: -15%; top: 22%; transform: scale(0.6); }
+    20% { top: 15%; }
+    40% { top: 20%; }
+    60% { top: 12%; }
+    80% { top: 18%; }
+    100% { left: 115%; top: 16%; transform: scale(0.6); }
+  }
+
+  .dove-body {
+    position: relative;
+    width: 20px;
+    height: 10px;
+    background: #f0ece0;
+    border-radius: 50% 50% 40% 40%;
+    transform: rotate(-10deg);
+  }
+
+  .dove-head {
+    position: absolute;
+    top: -5px;
+    right: -3px;
+    width: 8px;
+    height: 7px;
+    background: #f0ece0;
+    border-radius: 50%;
+  }
+
+  .dove-beak {
+    position: absolute;
+    top: -1px;
+    right: -7px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid #d4a050;
+    border-top: 1.5px solid transparent;
+    border-bottom: 1.5px solid transparent;
+  }
+
+  .dove-wing-left {
+    position: absolute;
+    top: -12px;
+    left: 3px;
+    width: 14px;
+    height: 8px;
+    background: #e8e4d8;
+    border-radius: 50% 50% 20% 20%;
+    transform-origin: bottom right;
+    animation: wingFlapLeft 1.5s ease-in-out infinite;
+  }
+
+  .dove-wing-right {
+    position: absolute;
+    top: -10px;
+    left: 5px;
+    width: 12px;
+    height: 6px;
+    background: #e8e4d8;
+    border-radius: 50% 50% 20% 20%;
+    transform-origin: bottom right;
+    animation: wingFlapRight 1.5s ease-in-out infinite;
+  }
+
+  .dove-tail {
+    position: absolute;
+    left: -6px;
+    top: 2px;
+    width: 0;
+    height: 0;
+    border-right: 8px solid #e8e4d8;
+    border-top: 2px solid transparent;
+    border-bottom: 3px solid transparent;
+    transform: rotate(-15deg);
+  }
+
+  @keyframes wingFlapLeft {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-40deg); }
+  }
+
+  @keyframes wingFlapRight {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(30deg); }
+  }
+
+  /* === GOLDEN PARTICLES === */
+  .particles {
+    position: absolute;
+    inset: 0;
+    z-index: 7;
+    pointer-events: none;
+  }
+
+  .particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: radial-gradient(circle, rgba(255, 220, 150, 0.9), transparent);
+    border-radius: 50%;
+    animation: floatUp linear infinite;
+  }
+
+  .particle:nth-child(1) { left: 30%; bottom: 30%; animation-duration: 8s; animation-delay: 0s; width: 2px; height: 2px; }
+  .particle:nth-child(2) { left: 45%; bottom: 25%; animation-duration: 10s; animation-delay: 1s; width: 4px; height: 4px; }
+  .particle:nth-child(3) { left: 55%; bottom: 35%; animation-duration: 7s; animation-delay: 2s; }
+  .particle:nth-child(4) { left: 40%; bottom: 28%; animation-duration: 9s; animation-delay: 3s; width: 2px; height: 2px; }
+  .particle:nth-child(5) { left: 50%; bottom: 32%; animation-duration: 11s; animation-delay: 0.5s; width: 3px; height: 3px; }
+  .particle:nth-child(6) { left: 35%; bottom: 26%; animation-duration: 8.5s; animation-delay: 1.5s; }
+  .particle:nth-child(7) { left: 60%; bottom: 30%; animation-duration: 9.5s; animation-delay: 2.5s; width: 2px; height: 2px; }
+  .particle:nth-child(8) { left: 48%; bottom: 33%; animation-duration: 7.5s; animation-delay: 4s; width: 4px; height: 4px; }
+  .particle:nth-child(9) { left: 42%; bottom: 27%; animation-duration: 10.5s; animation-delay: 0.8s; }
+  .particle:nth-child(10) { left: 52%; bottom: 31%; animation-duration: 8s; animation-delay: 3.5s; width: 2px; height: 2px; }
+  .particle:nth-child(11) { left: 38%; bottom: 29%; animation-duration: 9s; animation-delay: 2.2s; }
+  .particle:nth-child(12) { left: 58%; bottom: 26%; animation-duration: 11.5s; animation-delay: 1.8s; width: 3px; height: 3px; }
+
+  @keyframes floatUp {
+    0% { 
+      transform: translateY(0) translateX(0) scale(1); 
+      opacity: 0; 
+    }
+    10% { opacity: 0.8; }
+    50% { 
+      opacity: 0.6; 
+      transform: translateY(-25vmin) translateX(8px) scale(0.8); 
+    }
+    90% { opacity: 0.2; }
+    100% { 
+      transform: translateY(-45vmin) translateX(-5px) scale(0.3); 
+      opacity: 0; 
+    }
+  }
+
+  /* === TEXT === */
+  .text-container {
+    position: absolute;
+    bottom: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 88%;
+    max-width: 500px;
+    z-index: 10;
+    text-align: center;
+    color: #f5e6c8;
+  }
+
+  .verse {
+    font-size: clamp(0.7rem, 2.2vmin, 1rem);
+    line-height: 1.9;
+    opacity: 0;
+    animation: textFadeIn 3s ease-out 3s forwards;
+    text-shadow: 0 0 15px rgba(255, 200, 120, 0.3), 0 1px 2px rgba(0,0,0,0.5);
+    margin-bottom: 12px;
+  }
+
+  .verse .highlight {
+    color: #ffd080;
+    font-weight: 700;
+    font-size: clamp(0.8rem, 2.5vmin, 1.1rem);
+  }
+
+  .prayer {
+    font-size: clamp(0.55rem, 1.6vmin, 0.75rem);
+    line-height: 1.8;
+    opacity: 0;
+    animation: textFadeIn 4s ease-out 6s forwards;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    color: #d4c4a0;
+  }
+
+  .reference {
+    font-size: clamp(0.5rem, 1.4vmin, 0.65rem);
+    color: #b8a880;
+    margin-top: 6px;
+    opacity: 0;
+    animation: textFadeIn 2s ease-out 9s forwards;
+  }
+
+  @keyframes textFadeIn {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* === WARM GLOW OVERLAY === */
+  .warm-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 20%,
+      rgba(255, 200, 120, 0) 0%,
+      transparent 60%);
+    animation: warmPulse 6s ease-in-out infinite;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  @keyframes warmPulse {
+    0%, 100% { background: radial-gradient(ellipse at 50% 20%, rgba(255, 200, 120, 0) 0%, transparent 60%); }
+    50% { background: radial-gradient(ellipse at 50% 20%, rgba(255, 200, 120, 0.08) 0%, transparent 60%); }
+  }
+
+  /* === SMALL TREES === */
+  .tree {
+    position: absolute;
+    z-index: 4;
+  }
+
+  .tree-trunk {
+    width: 3px;
+    height: 10px;
+    background: #2a3a2a;
+    margin: 0 auto;
+    border-radius: 1px;
+  }
+
+  .tree-crown {
+    width: 12px;
+    height: 14px;
+    background: #2a4a2a;
+    border-radius: 50% 50% 40% 40%;
+    margin: 0 auto;
+    position: relative;
+    top: 1px;
+  }
+
+  .tree-1 {
+    bottom: 28%;
+    left: 15%;
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+
+  .tree-2 {
+    bottom: 30%;
+    right: 12%;
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+
+  .tree-3 {
+    bottom: 32%;
+    left: 35%;
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+
+  /* === TITLE === */
+  .title {
+    position: absolute;
+    top: 4%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    font-size: clamp(0.9rem, 2.8vmin, 1.3rem);
+    color: #f5e6c8;
+    text-shadow: 0 0 20px rgba(255, 200, 120, 0.4), 0 2px 4px rgba(0,0,0,0.5);
+    opacity: 0;
+    animation: titleIn 3s ease-out 1s forwards;
+    white-space: nowrap;
+    letter-spacing: 0.15em;
+  }
+
+  @keyframes titleIn {
+    0% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+    100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  /* === AMBIENT MIST === */
+  .mist {
+    position: absolute;
+    bottom: 18%;
+    left: -10%;
+    width: 120%;
+    height: 15%;
+    background: linear-gradient(180deg, 
+      transparent, 
+      rgba(200, 190, 170, 0.05), 
+      rgba(200, 190, 170, 0.08), 
+      transparent);
+    z-index: 3;
+    animation: mistDrift 15s ease-in-out infinite;
+  }
+
+  @keyframes mistDrift {
+    0%, 100% { transform: translateX(-3%); opacity: 0.5; }
+    50% { transform: translateX(3%); opacity: 0.8; }
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 600px) {
+    .text-container {
+      width: 92%;
+    }
+    .verse {
+      font-size: 0.65rem;
+    }
+    .prayer {
+      font-size: 0.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="scene">
+  <!-- Sky -->
+  <div class="sky"></div>
+
+  <!-- Stars -->
+  <div class="stars">
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+  </div>
+
+  <!-- Divine Light -->
+  <div class="divine-light"></div>
+  <div class="warm-overlay"></div>
+
+  <!-- Light Rays -->
+  <div class="light-rays">
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+  </div>
+
+  <!-- Mist -->
+  <div class="mist"></div>
+
+  <!-- Hills -->
+  <div class="hill-back"></div>
+  <div class="hill-center"></div>
+  <div class="hill-front"></div>
+
+  <!-- Trees -->
+  <div class="tree tree-1">
+    <div class="tree-crown"></div>
+    <div class="tree-trunk"></div>
+  </div>
+  <div class="tree tree-2">
+    <div class="tree-crown"></div>
+    <div class="tree-trunk"></div>
+  </div>
+  <div class="tree tree-3">
+    <div class="tree-crown"></div>
+    <div class="tree-trunk"></div>
+  </div>
+
+  <!-- Cross -->
+  <div class="cross">
+    <div class="cross-vertical">
+      <div class="cross-horizontal"></div>
+    </div>
+  </div>
+
+  <!-- People -->
+  <div class="people">
+    <div class="person-elderly">
+      <div class="head"></div>
+      <div class="body"></div>
+      <div class="cane"></div>
+    </div>
+    <div class="person-adult">
+      <div class="head"></div>
+      <div class="body"></div>
+    </div>
+    <div class="person-child">
+      <div class="head"></div>
+      <div class="body"></div>
+    </div>
+  </div>
+
+  <!-- Dove -->
+  <div class="dove">
+    <div class="dove-body"></div>
+    <div class="dove-head"></div>
+    <div class="dove-beak"></div>
+    <div class="dove-wing-left"></div>
+    <div class="dove-wing-right"></div>
+    <div class="dove-tail"></div>
+  </div>
+
+  <!-- Golden Particles -->
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <!-- Title -->
+  <div class="title">✝ 主的平安與應許 ✝</div>
+
+  <!-- Text -->
+  <div class="text-container">
+    <div class="verse">
+      「<span class="highlight">你不要害怕，因為我與你同在；</span><br>
+      不要驚惶，因為我是你的神。<br>
+      <span class="highlight">我必堅固你，我必幫助你。</span>」
+    </div>
+    <div class="reference">— 以賽亞書 41:10 —</div>
+    <div class="prayer">
+      求主賜下出人意外的平安，保守你們的心與思念<br>
+      在基督耶穌裡。願聖靈賜你們屬天盼望，<br>
+      在隱憂中持守信心，在恩典裡前行。<br>
+      <strong style="color:#ffd080;">阿們。</strong>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
